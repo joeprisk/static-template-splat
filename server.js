@@ -21,7 +21,7 @@ app.set('view engine', 'handlebars');
 app.get('/', routes.layout);
 app.get('/partial/:controller/:action', exposeTemplates, routes.partial);
 app.get('/modal/:controller/:action', exposeTemplates, routes.modal);
-app.get('/*', routes.notFound);
+app.get('/*', runJs, routes.layout);
 app.listen(8080, start);
 
 
@@ -36,6 +36,15 @@ function exposeTemplates(req, res, next) {
 		setImmediate(next);
 	})
 		.catch(next);
+}
+
+function runJs(request, response, next) {
+	
+	// here extract the route and do usefull loading of stuff
+	
+	// eg : get user api key from headers grab user data and send down to the page pre-rendered
+	
+	next();
 }
 
 function start() {
